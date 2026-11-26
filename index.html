@@ -1,0 +1,139 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Redov NFT</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Onest:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Макет: слева имя и ссылки, справа карточка-токен с генеративным артом; ниже памятка по безопасности */
+:root{
+  --bg:#eef0fa; --surface:#ffffff; --fg:#141536; --muted:#545779; --line:#d5d8ee;
+  --accent:#3540e8; --on-accent:#ffffff; --pop:#ff6a3d;
+  --display:"Unbounded","Arial Black",sans-serif;
+  --body:"Onest",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e0f28; --surface:#181a3d; --fg:#eef0ff; --muted:#a7abd4; --line:#2d3064;
+  --accent:#8089ff; --on-accent:#0e0f28; --pop:#ff8159; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e0f28; --surface:#181a3d; --fg:#eef0ff; --muted:#a7abd4; --line:#2d3064;
+  --accent:#8089ff; --on-accent:#0e0f28; --pop:#ff8159; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:16px/1.55 var(--body)}
+.wrap{max-width:1040px;margin:0 auto;padding-block:24px 40px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,p{margin:0}
+.hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:56px;align-items:center;padding-block:32px 64px}
+.intro{display:flex;flex-direction:column;gap:20px;min-width:0}
+.tag{font:600 13px var(--mono);color:var(--accent);letter-spacing:.08em;text-transform:uppercase}
+h1{font:800 clamp(52px,11vw,104px)/1 var(--display);letter-spacing:-.03em}
+h1 span{color:var(--pop)}
+.lead{font-size:20px;color:var(--muted);max-width:34ch}
+.links{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+.link{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px 18px;
+  background:var(--surface);border:2px solid var(--line);border-radius:14px;color:var(--fg);text-decoration:none;transition:transform .15s,border-color .15s}
+.link:hover{border-color:var(--accent);transform:translateX(4px)}
+.link.main{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.ico{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;background:var(--bg);color:var(--accent)}
+.ico svg{width:22px;height:22px}
+.link b{display:block;font-weight:700;font-size:17px}
+.link small{display:block;font:400 13px var(--mono);opacity:.8;overflow-wrap:anywhere}
+.arrow{font:600 20px var(--mono)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--pop);outline-offset:3px}
+.token{background:var(--surface);border:2px solid var(--fg);border-radius:20px;padding:16px;box-shadow:12px 12px 0 var(--accent);min-width:0;width:100%;max-width:400px;justify-self:center}
+canvas{display:block;width:100%;aspect-ratio:1;border-radius:10px;image-rendering:pixelated}
+.meta{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:14px;flex-wrap:wrap}
+.meta strong{font:600 16px var(--display)}
+.meta div span{display:block;font:400 12px var(--mono);color:var(--muted)}
+button{font:700 14px var(--body);cursor:pointer;border-radius:10px;padding:10px 16px;border:2px solid var(--fg);background:transparent;color:var(--fg)}
+button:hover{background:var(--fg);color:var(--bg)}
+.safe{border-top:2px solid var(--line);padding-block:48px;display:flex;flex-direction:column;gap:28px}
+h2{font:600 clamp(22px,4vw,32px)/1.2 var(--display);text-wrap:balance}
+.rules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 40px;margin:0;padding:0;list-style:none}
+.rules b{display:block;font-size:18px;margin-bottom:6px}
+.rules p{color:var(--muted)}
+footer{background:var(--surface);border:2px solid var(--line);border-radius:20px;padding:28px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.user{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.user code{font:600 18px var(--mono);user-select:all}
+@media (max-width:780px){
+  .hero{grid-template-columns:minmax(0,1fr);gap:48px;padding-block:16px 56px}
+  .rules{grid-template-columns:minmax(0,1fr)}
+  .token{max-width:340px}
+}
+@media (prefers-reduced-motion:reduce){.link{transition:none}.link:hover{transform:none}}
+</style>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="intro">
+      <p class="tag">Эксперт по NFT</p>
+      <h1>Redov<span>.</span></h1>
+      <p class="lead">Разбираюсь в NFT. Подписывайся на мои соцсети и пиши в личку.</p>
+      <nav class="links" aria-label="Мои ссылки">
+        <a class="link main" href="https://t.me/Redo_TGK" target="_blank" rel="noopener">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 10v4h4l9 5V5L7 10H3zM19.5 9v6"/></svg></span>
+          <span><b>Telegram-канал</b><small>t.me/Redo_TGK</small></span><span class="arrow" aria-hidden="true">↗</span>
+        </a>
+        <a class="link" href="https://tiktok.com/@tgk.redov" target="_blank" rel="noopener">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span>
+          <span><b>TikTok</b><small>@tgk.redov</small></span><span class="arrow" aria-hidden="true">↗</span>
+        </a>
+        <a class="link" href="https://t.me/MrRedov" target="_blank" rel="noopener">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H10l-5 4v-4H4z"/></svg></span>
+          <span><b>Личные сообщения</b><small>@MrRedov</small></span><span class="arrow" aria-hidden="true">↗</span>
+        </a>
+      </nav>
+    </div>
+    <div class="token">
+      <canvas id="art" width="12" height="12" role="img" aria-label="Генеративный пиксельный арт"></canvas>
+      <div class="meta">
+        <div><strong id="num">Redov #1</strong><span>Генеративный арт 12×12</span></div>
+        <button id="gen" type="button">Новый арт</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="safe">
+    <h2>Как не потерять свои NFT</h2>
+    <ul class="rules">
+      <li><b>Никому не давай сид-фразу</b><p>Тот, кто знает сид-фразу, получает весь кошелёк. Настоящая поддержка её не спрашивает.</p></li>
+      <li><b>Читай, что подписываешь</b><p>Одна подпись на поддельном сайте может открыть мошеннику доступ к твоим токенам.</p></li>
+      <li><b>Проверяй адрес коллекции</b><p>Название и картинку легко скопировать. Сверяй адрес контракта с официальным источником.</p></li>
+      <li><b>Не верь внезапным подаркам</b><p>Ссылки на «бесплатный минт» в личке часто ведут на фишинговые сайты.</p></li>
+    </ul>
+  </section>
+
+  <footer>
+    <h2>Есть вопрос по NFT?</h2>
+    <div class="user">
+      <code id="handle">@MrRedov</code>
+      <button id="copy" type="button">Скопировать юз</button>
+    </div>
+  </footer>
+</main>
+
+<script>
+(function(){
+  var c=document.getElementById('art'),x=c.getContext('2d'),n=1;
+  var sets=[['#3540e8','#ff6a3d','#ffd166','#eef0fa'],['#141536','#8089ff','#39d6b4','#ffffff'],
+            ['#ff6a3d','#141536','#ffd166','#fff3e8'],['#0f766e','#ffd166','#ff5d8f','#e8fbf6']];
+  function rng(s){return function(){s=(s+0x6D2B79F5)|0;var t=Math.imul(s^(s>>>15),1|s);t^=t+Math.imul(t^(t>>>7),61|t);return((t^(t>>>14))>>>0)/4294967296}}
+  function draw(){
+    var r=rng(n*7919+13),p=sets[(n-1)%sets.length];
+    x.fillStyle=p[0];x.fillRect(0,0,12,12);
+    for(var j=1;j<11;j++)for(var i=1;i<6;i++){
+      if(r()<.55){x.fillStyle=p[1+Math.floor(r()*3)];x.fillRect(i,j,1,1);x.fillRect(11-i,j,1,1);}
+    }
+    document.getElementById('num').textContent='Redov #'+n;
+  }
+  document.getElementById('gen').addEventListener('click',function(){n++;draw()});
+  draw();
+  var b=document.getElementById('copy');
+  b.addEventListener('click',function(){
+    function fail(){var s=getSelection(),g=document.createRange();g.selectNodeContents(document.getElementById('handle'));s.removeAllRanges();s.addRange(g);b.textContent='Юз выделен, скопируй'}
+    if(!navigator.clipboard){fail();return}
+    navigator.clipboard.writeText('@MrRedov').then(function(){b.textContent='Скопировано'},fail);
+  });
+})();
+</script>
+
+</body></html>
